@@ -31,7 +31,7 @@ from fundskill_utilities.fundskill_shared_bokeh_utilities import HistogramPlot, 
 
 from bokeh_constants import *
 
-from make_histoogram_procedure import make_histogram
+from make_histogram_procedure import make_histogram
 from chi_distribution_plot_old import ChiMaxLikelihood, draw_active_share_histogram, ChiKSTest
 
 

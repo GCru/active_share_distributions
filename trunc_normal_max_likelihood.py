@@ -15,7 +15,7 @@ from bokeh.io import export_png
 
 from bokeh_constants import *
 
-from make_histoogram_procedure import make_histogram
+from make_histogram_procedure import make_histogram
 
 
 def draw_trunc_normal_histogram(data_list, mu, sigma, bins="auto", density_histogram=False):

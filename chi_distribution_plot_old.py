@@ -16,7 +16,7 @@ from bokeh.io import export_png
 
 from bokeh_constants import *
 
-from make_histoogram_procedure import make_histogram
+from make_histogram_procedure import make_histogram
 
 
 def draw_active_share_histogram(data_list, data_list_2, k, sigma, bins="auto", density_histogram=False):
