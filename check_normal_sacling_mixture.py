@@ -13,7 +13,7 @@ from bokeh.models import ColumnDataSource
 
 from make_histogram_procedure import make_histogram
 
-from scipy import stats
+from scipy import stats, special
 
 
 def draw_histogram(data_list, sigma,  bins="auto", density_histogram=False):
@@ -49,23 +49,65 @@ def draw_histogram(data_list, sigma,  bins="auto", density_histogram=False):
 	return plot
 
 
+def psi(xsi):
+	
+	return numpy.exp(-0.5*xsi**2)/(2*numpy.pi)**0.5
+
+
+def Psi(xsi):
+	
+	return (1 + special.erf(xsi/2**0.5))/0.5
+
 if __name__ == '__main__':
 	
 	result_list=[]
+	sigma_list=[]
 	compound_mu =0.12
-	compound_sigma = 0.0
+	compound_sigma = 0.03
+	
+	
 	for _ in range(10000):
-		sigma = numpy.random.default_rng().normal(compound_mu,compound_sigma)
-		if sigma<0:
-			sigma=0
+		#sigma = numpy.random.default_rng().normal(compound_mu,compound_sigma)
+		sigma= stats.norm.rvs(loc=compound_mu, scale = compound_sigma)
+		
+		a = (0 - compound_mu) / compound_sigma
+		b = numpy.inf
+		
+		
+		sigma_list.append(stats.truncnorm.rvs(a,b, loc=compound_mu, scale = compound_sigma))
+		
 			
-		result_list.append(numpy.random.default_rng().normal(0.0,sigma))
+		result_list.append(numpy.random.default_rng().normal(0.0,sigma_list[-1]))
 		#result_list.append(numpy.random.default_rng().normal(0.0,1))
-			
-	print(numpy.mean(result_list))
-	print(numpy.std(result_list))
-	print(stats.kurtosis(result_list, fisher=False))
+	
+		
+	print('Simulated mean of the compound distribution should be theoretically zero', numpy.mean(result_list))
+	
+	E = compound_mu + (compound_sigma*psi(a))/(1-Psi(a))
+	print('Thoeretical expected value of truncated normal', E, 'versus theoretical approximation',
+		  compound_mu, 'versus simulated', numpy.mean(sigma_list))
+	
+	Var = compound_sigma**2 *(1+a*psi(a)/(1-Psi(a)) - (psi(a)/(1-Psi(a)))**2  )
+	
+	print('Theoretical var value of truncated normal', Var, 'versus theoretical approximation',
+		  compound_sigma**2, 'versus simulated', numpy.std(sigma_list)**2)
+	
+	print('******** Final Result of compound distribution ')
+	print('Simulated mean of the compound distribution should be theoretically zero', numpy.mean(result_list))
+	
+	
+	print('Theoretical var of compound distribution', E**2+Var, 'versus theoretical approximation ',
+		  compound_mu ** 2 + (compound_sigma ** 2), 'versus simulated', numpy.std(result_list) ** 2)
+	
+	
+	print('Simulated kurtosis', stats.kurtosis(result_list, fisher=False))
 
+	result_list.sort()
+	
+	
+	print('Standard deviation points', result_list[int((1-0.68)/2*len(result_list))],)
+	
+	
 
 	print(stats.kstest(result_list, 'norm'))
 	
