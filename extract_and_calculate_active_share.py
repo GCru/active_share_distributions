@@ -17,8 +17,8 @@ from fundskill_utilities.fundskill_utilities import change_to_next_month_end, ch
 	change_to_month_end, change_to_quarter_end, index, change_to_year_end
 from core.models import *
 
-from active_risk_conventional_routines import load_stock_returns_in_return_dictionary_old, set_up_numpy_arrays, \
-	calculate_active_share_and_risk, get_benchmark_stdevs_old
+#from active_risk_conventional_routines import load_stock_returns_in_return_dictionary_old, set_up_numpy_arrays, \
+#	calculate_active_share_and_risk, get_benchmark_stdevs_old
 
 from  calculate_active_risk import get_benchmark_stdevs, load_stock_returns_in_return_dictionary, \
 	calculate_active_share, setup_and_calculate_active_risk
