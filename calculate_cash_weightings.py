@@ -56,5 +56,9 @@ if __name__ == '__main__':
 		combined_cash_list = combined_cash_list +cash_list
 		
 		print(benchmark_name, numpy.mean(cash_list), numpy.std(cash_list) )
+		
+		cash_list.sort()
+		#print(cash_list[0], cash_list[-1])
+		#print('68th percentile', cash_list[int(0.5*len(cash_list))])
 	
 	print('Overall', numpy.mean(combined_cash_list), numpy.std(combined_cash_list))

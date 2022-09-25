@@ -15,7 +15,7 @@ from bokeh.io import export_png
 
 from bokeh_constants import *
 
-from shared_with_active_risk_paper import make_histogram
+from make_histogram_procedure import make_histogram
 
 
 def draw_scaled_chi_histogram(data_list, k, sigma, bins="auto", density_histogram=False):

@@ -20,10 +20,10 @@ from core.models import *
 from active_risk_conventional_routines import load_stock_returns_in_return_dictionary_old, set_up_numpy_arrays, \
 	calculate_active_share_and_risk, get_benchmark_stdevs_old
 
-from shared_with_active_share_paper import get_benchmark_stdevs, load_stock_returns_in_return_dictionary, \
+from  calculate_active_risk import get_benchmark_stdevs, load_stock_returns_in_return_dictionary, \
 	calculate_active_share, setup_and_calculate_active_risk
 
-from shared_with_active_risk_paper import get_active_tickers_and_weights
+from get_active_tickers_and_weights_procedure import get_active_tickers_and_weights
 
 from shared_functions import setup_date_range_and_benchmark_list
 

@@ -4,7 +4,7 @@ import numpy
 from scipy.stats import halfnorm, norm
 from bokeh.io import output_file, show
 
-from shared_functions import draw_histogram
+from make_histogram_procedure import draw_histogram
 
 if __name__ == '__main__':
 	

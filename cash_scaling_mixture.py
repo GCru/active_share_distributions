@@ -6,6 +6,8 @@ from scipy.stats import kstest, kurtosis, skew, skewtest, jarque_bera, wasserste
 from scipy.special import erf
 from scipy import optimize
 
+from bokeh.io import export_png
+
 from bokeh.plotting import figure, output_file, show
 from bokeh.models import Range1d, PrintfTickFormatter, NumeralTickFormatter, Title
 from bokeh.layouts import row
@@ -53,8 +55,8 @@ def draw_histogram(data_list, sigma,  bins="auto", density_histogram=False):
 	plot.toolbar.logo = None
 	plot.toolbar_location = None
 	
-	my_title = Title(text="Modelled cash positions for S&P 500", align='center',
-					 text_font=font, text_font_size=double_graph_title_font_size,
+	my_title = Title(text="Modelled funds' cash positions for S&P 500", align='center',
+					 text_font=font, text_font_size='23px',
 					 text_line_height=1, vertical_align='middle')
 	plot.add_layout(my_title, "above")
 	
@@ -63,7 +65,7 @@ def draw_histogram(data_list, sigma,  bins="auto", density_histogram=False):
 	plot.yaxis[0].formatter = NumeralTickFormatter(format="0%")
 	plot.y_range = Range1d(0.0, 0.06)
 	
-	plot.xaxis.axis_label = 'Cash positon'
+	plot.xaxis.axis_label = 'Cash position'
 	plot.xaxis.axis_label_text_font = font
 	plot.yaxis.axis_label_text_font = font
 	plot.axis.major_label_text_font_size = "16px"  # double_graph_major_label_font_size
@@ -114,8 +116,9 @@ if __name__ == '__main__':
 	
 	result_list=[]
 	sigma_list=[]
-	compound_mu =0.132
-	compound_sigma = 0.052
+	
+	compound_mu =0.129
+	compound_sigma = 0.037
 	
 	
 	for _ in range(10000):
@@ -151,6 +154,9 @@ if __name__ == '__main__':
 	print('Theoretical var of compound distribution', E**2+Var, 'versus theoretical approximation ',
 		  compound_mu ** 2 + (compound_sigma ** 2), 'versus simulated', numpy.std(result_list) ** 2)
 	
+	print('Theoretical stdev of compound distribution', (E ** 2 + Var)**0.5, 'versus theoretical approximation ',
+		  (compound_mu ** 2 + (compound_sigma ** 2))**0.5, 'versus simulated', numpy.std(result_list) )
+	
 	
 	print('Simulated kurtosis', stats.kurtosis(result_list, fisher=False))
 
@@ -160,11 +166,13 @@ if __name__ == '__main__':
 	print('Standard deviation points', result_list[int((1-0.68)/2*len(result_list))],
 		  result_list[int((1-(1-0.68)/2)*len(result_list))])
 	
-	
+	print("mean of all points above 0", numpy.mean([item for item in result_list if item>-0.00001]) )
 
 	print(stats.kstest(result_list, 'norm'))
 	
 	print(stats.shapiro(result_list))
 	
 	
-	draw_histogram(result_list, compound_mu)
+	#plot = draw_histogram(result_list, compound_mu)
+	
+	#export_png(plot, filename="cash_scaling_mixture_plot.png")

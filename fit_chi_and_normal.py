@@ -370,6 +370,8 @@ def create_tables_of_fits(date_range, benchmark_list):
 		
 		print(benchmark_name, 'fitted parameters: (k, sigma_chi), (mu, sigma_truncnorm)', chi_params, truncnorm_params)
 		
+		print('Modelled cash positon stdev', (mu**2 +sigma_truncnorm**2)**0.5)
+		
 		dict_data.append({'benchmark': benchmark_name,
 					'k':k, 'sigma_chi':sigma_chi, 'mu': mu, 'sigma_truncnorm':sigma_truncnorm, 'data_points':len(data_array)})
 	
@@ -398,23 +400,23 @@ if __name__ == '__main__':
 	benchmark_name_right = 'Russell 2000 TR USD'
 	
 	
-	p1=create_panel_of_histogram_fits(date_range, benchmark_name_left, benchmark_name_right)
+	#p1=create_panel_of_histogram_fits(date_range, benchmark_name_left, benchmark_name_right)
 	
-	export_png(p1, filename="fit_chi_and_normal_histogram_plot.png")
+	#export_png(p1, filename="fit_chi_and_normal_histogram_plot.png")
 	
 	
 	
-	p2 = create_panel_of_qq_fits(benchmark_name_left, benchmark_name_right, truncnormal=True)
+	#p2 = create_panel_of_qq_fits(benchmark_name_left, benchmark_name_right, truncnormal=True)
 	
-	export_png(p2, filename="fit_chi_and_normal_qq_plot.png")
+	#export_png(p2, filename="fit_chi_and_normal_qq_plot.png")
 	
 	
 
 	#create_single_qq_plot('Russell 3000 TR USD')  #'S&P 500 TR USD')  #
 
 	
-	#create_tables_of_fits(date_range, benchmark_list)
+	create_tables_of_fits(date_range, benchmark_list)
 	
-	p3=create_grid_of_qq_fits()
+	#p3=create_grid_of_qq_fits()
 	
-	export_png(p3, filename="fit_chi_and_normal_qq_grid_plot.png")
+	#export_png(p3, filename="fit_chi_and_normal_qq_grid_plot.png")

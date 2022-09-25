@@ -39,7 +39,6 @@ from fundskill_utilities.fundskill_shared_bokeh_utilities import HistogramPlot, 
 
 from bokeh_constants import *
 
-from shared_with_active_risk_paper import make_histogram
 from shared_functions import load_data_from_csv_file, setup_date_range_and_benchmark_list
 
 
